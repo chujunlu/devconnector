@@ -51,13 +51,13 @@ router.post(
         avatar,
         password
       });
-      
+
       const salt = await bcrypt.genSalt(10);
 
       user.password = await bcrypt.hash(password, salt);
 
       await user.save();
-      
+
       const payload = {
         user: {
           id: user.id
@@ -77,7 +77,6 @@ router.post(
       console.error(err.message);
       res.status(500).send('Server error');
     }
-
   }
 );
 
