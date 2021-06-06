@@ -9,8 +9,8 @@ const auth = require('../../middleware/auth');
 const User = require('../../models/User');
 
 // @route   GET api/auth
-// @desc    Verify user
-// @access  Public
+// @desc    Get user by token
+// @access  Private
 router.get('/', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
