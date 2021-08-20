@@ -1,28 +1,65 @@
-import React, { useState } from 'react'
-import { Link, withRouter } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { Link, withRouter, useRouteMatch } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { createProfile } from '../../actions/profile'
+import { createProfile, getCurrentProfile } from '../../actions/profile'
 
 
-const CreateProfile = ({ createProfile, history }) => {
-    const [formData, setFormData] = useState({
-        company: '',
-        website: '',
-        location: '',
-        status: '',
-        skills: '',
-        githubusername: '',
-        bio: '',
-        twitter: '',
-        facebook: '',
-        linkedin: '',
-        youtube: '',
-        instagram: ''
-    });
+const initialState = {
+    company: '',
+    website: '',
+    location: '',
+    status: '',
+    skills: '',
+    githubusername: '',
+    bio: '',
+    twitter: '',
+    facebook: '',
+    linkedin: '',
+    youtube: '',
+    instagram: ''
+}
+
+const ProfileForm = ({
+    profile: { profile, loading },
+    createProfile,
+    getCurrentProfile,
+    history
+}) => {
+    const [formData, setFormData] = useState(initialState);
+
+    const isCreatingProfile = useRouteMatch("/create-profile");
 
     const [displaySocialInputs, toggleSocialInput] = useState(false);
+
+    useEffect(() => {
+        if (!profile) {
+            getCurrentProfile();
+        }
+
+        if (!loading && profile) {
+            const profileData = { ...initialState };
+
+            for (const key in profile) {
+                if (key in profileData) {
+                    profileData[key] = profile[key];
+                }
+            }
+
+            for (const key in profile.social) {
+                if (key in profileData) {
+                    profileData[key] = profile.social[key];
+                }
+            }
+
+            if (Array.isArray(profileData.skills)) {
+                profileData.skills = profileData.skills.join(', ');
+            }
+
+            setFormData(profileData);
+        }
+    }, [loading, profile, getCurrentProfile]);
 
     const {
         company,
@@ -46,17 +83,21 @@ const CreateProfile = ({ createProfile, history }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        createProfile(formData, history)
+        createProfile(formData, history, profile ? true : false);
     }
 
     return (
         <>
             <h1 className="large text-primary">
-                Create Your Profile
+                {isCreatingProfile ? 'Create Your Profile' : 'Edit Your Profile'}
             </h1>
             <p className="lead">
-                <i className="fas fa-user"></i> Let's get some information to make your
-                profile stand out
+                <i className="fas fa-user"></i>
+                {
+                    isCreatingProfile
+                    ? ` Let's get some information to make your profile stand out`
+                    : ' Add some changes to your profile'
+                }
             </p>
             <small>* = required field</small>
             <form className="form" onSubmit={e => onSubmit(e)}>
@@ -210,14 +251,25 @@ const CreateProfile = ({ createProfile, history }) => {
                 </>}
 
                 <input type="submit" className="btn btn-primary my-1" />
-                <Link className="btn btn-light my-1" to="/dashboard">Go Back</Link>
+                <Link className="btn btn-light my-1" to="/dashboard">
+                    Go Back
+                </Link>
             </form>
         </>
     )
 }
 
-CreateProfile.propTypes = {
+ProfileForm.propTypes = {
     createProfile: PropTypes.func.isRequired,
+    getCurrentProfile: PropTypes.func.isRequired,
+    profile: PropTypes.object.isRequired,
 }
 
-export default connect(null, { createProfile })(withRouter(CreateProfile))
+const mapStateToProps = state => ({
+    profile: state.profile
+})
+
+export default connect(
+    mapStateToProps,
+    { createProfile, getCurrentProfile }
+)(withRouter(ProfileForm))
