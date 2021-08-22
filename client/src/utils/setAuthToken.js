@@ -1,12 +1,12 @@
-import axios from 'axios';
+import api from './api';
 
 const setAuthToken = token => {
     if (token) {
         localStorage.setItem('token', token);
-        axios.defaults.headers.common['x-auth-token'] = token;
+        api.defaults.headers.common['x-auth-token'] = token;
     } else {
         localStorage.removeItem('token');
-        delete axios.defaults.headers.common['x-auth-token'];
+        delete api.defaults.headers.common['x-auth-token'];
     }
 }
 
