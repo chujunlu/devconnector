@@ -26,7 +26,7 @@ const PostForm = ({ addPost }) => {
                     onChange={e => setText(e.target.value)}
                     required
                 ></textarea>
-                <input type="submit" className="btn btn-dark my-1" value="submit" />
+                <input type="submit" className="btn btn-dark my-1" value="Submit" />
             </form>
         </div>
     )
