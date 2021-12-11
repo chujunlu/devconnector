@@ -68,6 +68,7 @@ router.post(
           { expiresIn: 360000 },
           (err, token) => {
             if (err) throw err;
+            res.cookie('token', token, { httpOnly: true, maxAge: 360000 });
             res.json({ token });
           }
         );
