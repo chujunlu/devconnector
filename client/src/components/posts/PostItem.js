@@ -4,16 +4,18 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 import { addLike, removeLike, deletePost } from '../../actions/post'
-import formatDate from '../../utils/formatDate'
+import { formatDate } from '../../utils/formatDate'
 
-const PostItem = ({
+
+function PostItem({
     auth,
     addLike,
     removeLike,
     deletePost,
     post: { _id, text, name, avatar, user, likes, comments, date },
     showActions = true
-}) => (
+}) {
+    return (
         <div className="post bg-white p-1 my-1">
             <div>
                 <Link to={`/profile/${user}`}>
@@ -50,6 +52,7 @@ const PostItem = ({
           </div>
         </div>
     )
+}
 
 PostItem.propTypes = {
     post: PropTypes.object.isRequired,

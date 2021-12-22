@@ -2,10 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import formatDate from '../../utils/formatDate'
+import { formatDate } from '../../utils/formatDate'
 import { deleteEducation } from '../../actions/profile'
 
-const Education = ({ education, deleteEducation }) => {
+function Education({ education, deleteEducation }) {
     const educations = education.map(edu => (
         <tr key={edu._id}>
             <td>{edu.school}</td>

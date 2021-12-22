@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
 import { getGithubRepos } from '../../actions/profile'
-import Spinner from '../layout/Spinner'
+import { Spinner } from '../layout/Spinner'
 
-const ProfileGithub = ({ username, getGithubRepos, repos }) => {
+
+function ProfileGithub({ username, getGithubRepos, repos }) {
     useEffect(() => {
         getGithubRepos(username);
     }, [getGithubRepos, username]);

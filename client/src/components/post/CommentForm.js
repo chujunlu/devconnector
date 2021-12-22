@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { addComment } from '../../actions/post'
 
 
-const CommentForm = ({ postId, addComment }) => {
+function CommentForm({ postId, addComment }) {
     const [text, setText] = useState('');
 
     return (

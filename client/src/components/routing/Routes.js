@@ -2,7 +2,7 @@ import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
 import Alert from '../layout/Alert'
-import NotFound from '../layout/NotFound'
+import { NotFound } from '../layout/NotFound'
 import Login from '../auth/Login'
 import Register from '../auth/Register'
 import Dashboard from '../dashboard/Dashboard'
@@ -15,7 +15,7 @@ import Posts from '../posts/Posts'
 import Post from '../post/Post'
 import PrivateRoute from '../routing/PrivateRoute'
 
-export const Routes = () => {
+export function Routes() {
     return (
         <section className="container">
             <Alert />

@@ -1,7 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const ProfileTop = ({
+
+export function ProfileTop({
     profile: {
         status,
         company,
@@ -10,7 +11,7 @@ const ProfileTop = ({
         social,
         user: { name, avatar }
     }
-}) => {
+}) {
     return (
         <div className="profile-top bg-primary p-2">
           <img
@@ -60,5 +61,3 @@ const ProfileTop = ({
 ProfileTop.propTypes = {
     profile: PropTypes.object.isRequired,
 }
-
-export default ProfileTop

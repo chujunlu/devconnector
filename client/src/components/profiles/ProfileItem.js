@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const ProfileItem = ({
+export function ProfileItem({
     profile: {
         user: { _id, name, avatar },
         status,
@@ -10,7 +10,7 @@ const ProfileItem = ({
         location,
         skills
     }
-}) => {
+}) {
     return (
         <div className="profile bg-light">
             <img src={avatar} alt="" className="round-img" />
@@ -36,5 +36,3 @@ const ProfileItem = ({
 ProfileItem.propTypes = {
     profile: PropTypes.object.isRequired,
 }
-
-export default ProfileItem

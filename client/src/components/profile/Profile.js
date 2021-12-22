@@ -3,20 +3,20 @@ import PropTypes from 'prop-types'
 import  { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 
-import ProfileTop from './ProfileTop'
-import ProfileAbout from './ProfileAbout'
-import ProfileExperience from './ProfileExperience'
-import ProfileEducation from './ProfileEducation'
+import { ProfileTop } from './ProfileTop'
+import { ProfileAbout } from './ProfileAbout'
+import { ProfileExperience } from './ProfileExperience'
+import { ProfileEducation }  from './ProfileEducation'
 import ProfileGithub from './ProfileGithub'
-import Spinner from '../layout/Spinner'
+import { Spinner } from '../layout/Spinner'
 import { getProfileById } from '../../actions/profile'
 
-const Profile = ({
+function Profile({
     match,
     getProfileById,
     profile: { profile, loading },
     auth
-}) => {
+}) {
     useEffect(() => {
         getProfileById(match.params.id);
     }, [getProfileById, match.params.id]);

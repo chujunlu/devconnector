@@ -21,12 +21,12 @@ const initialState = {
     instagram: ''
 }
 
-const ProfileForm = ({
+function ProfileForm({
     profile: { profile, loading },
     createProfile,
     getCurrentProfile,
     history
-}) => {
+}) {
     const [formData, setFormData] = useState(initialState);
 
     const isCreatingProfile = useRouteMatch("/create-profile");
